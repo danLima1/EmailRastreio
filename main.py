@@ -6,12 +6,16 @@ from email.mime.multipart import MIMEMultipart
 
 app = Flask(__name__)
 
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+
 def enviar_email(to_email, full_name, tracking_code):
-    from_email = "danieldelimamendes500@gmail.com"
-    from_name = "Daniel Mendes"
-    password = "gkpl qyto voyw foho"  # Senha do e-mail do remetente
-    smtp_server = "smtp.gmail.com"
-    smtp_port = 587
+    from_email = "envio@rastreamento-distribuidora.shop"  # E-mail profissional da Hostinger
+    from_name = "Rastreamento"
+    password = "695476Pc@"  # Senha do e-mail do remetente
+    smtp_server = "smtp.hostinger.com"
+    smtp_port = 587  # Porta TLS (pode usar 465 se for SSL)
 
     first_name = full_name.split()[0]
     subject = "Código de Rastreamento da Sua Compra"
@@ -84,7 +88,7 @@ def enviar_email(to_email, full_name, tracking_code):
     <body>
         <div class="container">
             <div class="header">
-                <h1>Teste</h1>
+                <h1>Rastreamento de Pedido</h1>
             </div>
             <div class="body">
                 <p>Olá {first_name},</p>
@@ -113,9 +117,9 @@ def enviar_email(to_email, full_name, tracking_code):
     try:
         # Conectando ao servidor SMTP e enviando o e-mail
         server = smtplib.SMTP(smtp_server, smtp_port)
-        server.starttls()
-        server.login(from_email, password)
-        server.sendmail(from_email, to_email, msg.as_string())
+        server.starttls()  # Inicia conexão TLS
+        server.login(from_email, password)  # Autenticação
+        server.sendmail(from_email, to_email, msg.as_string())  # Enviando e-mail
         server.quit()
         print(f"E-mail enviado para {to_email}.")
     except Exception as e:
