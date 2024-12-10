@@ -8,17 +8,17 @@ from datetime import datetime
 app = Flask(__name__)
 
 def enviar_email(to_email, full_name, tracking_code, numero_pedido, previsao_entrega):
-    from_email = "promosaude@lojavitalife.com.br"  # E-mail profissional da Hostinger
+    from_email = "envio@rastreamento-distribuidora.shop"
     from_name = "Rastreamento"
-    password = "Googleads123@"  # Senha do e-mail do remetente
+    password = "695476Pc@"
     smtp_server = "smtp.hostinger.com"
-    smtp_port = 587  # Porta TLS (pode usar 465 se for SSL)
+    smtp_port = 587
 
     nome_cliente = full_name
-    data_envio = datetime.now().strftime('%d/%m/%Y')  # Data atual
+    data_envio = datetime.now().strftime('%d/%m/%Y')
     subject = "Código de Rastreio do seu Pedido"
 
-    # Template HTML fornecido
+    # Template HTML modificado: removemos o '#' antes dos placeholders
     html_template = """
     <!DOCTYPE html>
     <html lang="pt-BR">
@@ -107,7 +107,7 @@ def enviar_email(to_email, full_name, tracking_code, numero_pedido, previsao_ent
         <div class="container">
             <h2>Olá {nome_cliente},</h2>
             
-            <p>Ótimas notícias! Seu pedido #{numero_pedido} já está a caminho.</p>
+            <p>Ótimas notícias! Seu pedido {numero_pedido} já está a caminho.</p>
             
             <p>Aqui está seu código de rastreio:</p>
             
@@ -123,7 +123,7 @@ def enviar_email(to_email, full_name, tracking_code, numero_pedido, previsao_ent
             
             <p>Informações do pedido:</p>
             <ul>
-                <li>Número do pedido: #{numero_pedido}</li>
+                <li>Número do pedido: {numero_pedido}</li>
                 <li>Data do envio: {data_envio}</li>
                 <li>Previsão de entrega: {previsao_entrega}</li>
             </ul>
@@ -142,7 +142,7 @@ def enviar_email(to_email, full_name, tracking_code, numero_pedido, previsao_ent
     </html>
     """
 
-    # Substituição dos placeholders
+    # Substituir os placeholders
     html_content = html_template.format(
         nome_cliente=nome_cliente,
         numero_pedido=numero_pedido,
@@ -151,21 +151,18 @@ def enviar_email(to_email, full_name, tracking_code, numero_pedido, previsao_ent
         previsao_entrega=previsao_entrega
     )
 
-    # Construindo o e-mail
     msg = MIMEMultipart('alternative')
     msg['From'] = f"{from_name} <{from_email}>"
     msg['To'] = to_email
     msg['Subject'] = subject
 
-    # Adicionando o corpo HTML ao e-mail
     msg.attach(MIMEText(html_content, 'html'))
 
     try:
-        # Conectando ao servidor SMTP e enviando o e-mail
         server = smtplib.SMTP(smtp_server, smtp_port)
-        server.starttls()  # Inicia conexão TLS
-        server.login(from_email, password)  # Autenticação
-        server.sendmail(from_email, to_email, msg.as_string())  # Enviando e-mail
+        server.starttls()
+        server.login(from_email, password)
+        server.sendmail(from_email, to_email, msg.as_string())
         server.quit()
         print(f"E-mail enviado para {to_email}.")
     except Exception as e:
@@ -182,7 +179,7 @@ def webhook2():
         return jsonify({'status': 'error', 'message': 'Dados incompletos'}), 400
 
     try:
-        # Enviando os dados para a API que gera o código de rastreamento
+        # Requisição ao backend de rastreio
         response = requests.post('https://nightmarish-fishsticks-ggqgpqjx9x4f9jj7-5000.app.github.dev/webhook', json=data)
         print(f"Response status: {response.status_code}, Response content: {response.content.decode()}")
 
@@ -192,12 +189,11 @@ def webhook2():
         tracking_data = response.json()
         tracking_code = tracking_data.get('code')
         previsao_entrega = tracking_data.get('previsao_entrega', 'Não disponível')
-
-        # Se você tiver um número de pedido no data, use-o:
+        
+        # Caso o número do pedido não esteja disponível, usar um valor padrão
         numero_pedido = data.get('order_number', 'Indisponível')
 
         if tracking_code:
-            # Enviando o e-mail para o cliente com o código de rastreamento
             enviar_email(email, full_name, tracking_code, numero_pedido, previsao_entrega)
             return jsonify({'status': 'success', 'message': 'E-mail enviado com sucesso'}), 200
         else:
