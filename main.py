@@ -3,107 +3,153 @@ import requests
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+from datetime import datetime
 
 app = Flask(__name__)
 
-import smtplib
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
-
-def enviar_email(to_email, full_name, tracking_code):
-    from_email = "envio@rastreamento-distribuidora.shop"  # E-mail profissional da Hostinger
+def enviar_email(to_email, full_name, tracking_code, numero_pedido, previsao_entrega):
+    from_email = "promosaude@lojavitalife.com.br"  # E-mail profissional da Hostinger
     from_name = "Rastreamento"
-    password = "695476Pc@"  # Senha do e-mail do remetente
+    password = "Googleads123@"  # Senha do e-mail do remetente
     smtp_server = "smtp.hostinger.com"
     smtp_port = 587  # Porta TLS (pode usar 465 se for SSL)
 
-    first_name = full_name.split()[0]
-    subject = "Código de Rastreamento da Sua Compra"
+    nome_cliente = full_name
+    data_envio = datetime.now().strftime('%d/%m/%Y')  # Data atual
+    subject = "Código de Rastreio do seu Pedido"
 
-    # Template HTML do e-mail
-    html_template = f"""
+    # Template HTML fornecido
+    html_template = """
     <!DOCTYPE html>
     <html lang="pt-BR">
     <head>
         <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Código de Rastreio do seu Pedido</title>
         <style>
-            body {{
+            body {
                 font-family: Arial, sans-serif;
-                background-color: #f4f4f4;
-                margin: 0;
-                padding: 0;
-            }}
-            .container {{
+                line-height: 1.6;
+                color: #333;
                 max-width: 600px;
                 margin: 0 auto;
-                background-color: #ffffff;
                 padding: 20px;
-                border-radius: 8px;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            }}
-            .header {{
-                background-color: #0072c6;
-                color: white;
-                padding: 10px;
+            }
+            .logo {
                 text-align: center;
-                border-radius: 8px 8px 0 0;
-            }}
-            .header h1 {{
-                margin: 0;
-                font-size: 24px;
-            }}
-            .body {{
-                padding: 20px;
-                color: #333333;
-                line-height: 1.6;
-            }}
-            .footer {{
-                padding: 10px;
-                font-size: 12px;
-                text-align: center;
-                color: #888888;
-            }}
-            .tracking-code {{
+                margin-bottom: 20px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 10px;
+            }
+            .logo svg {
+                width: 32px;
+                height: 32px;
+                color: #6a3de8;
+            }
+            .logo-text {
+                color: #6a3de8;
+                font-size: 28px;
                 font-weight: bold;
-                color: #0072c6;
-                font-size: 18px;
-            }}
-            .button {{
-                display: inline-block;
-                background-color: #0072c6;
-                color: white;
-                padding: 10px 20px;
-                margin-top: 20px;
                 text-decoration: none;
-                border-radius: 4px;
-                font-size: 16px;
-            }}
-            .button:hover {{
-                background-color: #005b9e;
-            }}
+            }
+            .container {
+                background-color: #f8f7ff;
+                border-radius: 8px;
+                padding: 20px;
+                margin-top: 20px;
+                border: 1px solid #e6e3ff;
+            }
+            .tracking-code {
+                background-color: #f0ebff;
+                padding: 15px;
+                border-radius: 5px;
+                font-size: 18px;
+                text-align: center;
+                margin: 20px 0;
+                border: 1px solid #d9d1ff;
+            }
+            .button {
+                display: inline-block;
+                padding: 10px 20px;
+                background-color: #6a3de8;
+                color: white;
+                text-decoration: none;
+                border-radius: 5px;
+                margin-top: 15px;
+                transition: background-color 0.3s;
+            }
+            .button:hover {
+                background-color: #5632c0;
+            }
+            h2 {
+                color: #6a3de8;
+            }
+            .footer {
+                margin-top: 30px;
+                font-size: 12px;
+                color: #666;
+                text-align: center;
+            }
         </style>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     </head>
     <body>
+        <div class="logo">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                <path d="M3.29 7 12 12l8.71-5"></path>
+                <line x1="12" y1="22" x2="12" y2="12"></line>
+            </svg>
+            <span class="logo-text">FastTracker</span>
+        </div>
         <div class="container">
-            <div class="header">
-                <h1>Rastreamento de Pedido</h1>
+            <h2>Olá {nome_cliente},</h2>
+            
+            <p>Ótimas notícias! Seu pedido #{numero_pedido} já está a caminho.</p>
+            
+            <p>Aqui está seu código de rastreio:</p>
+            
+            <div class="tracking-code">
+                <strong>{codigo_rastreio}</strong>
             </div>
-            <div class="body">
-                <p>Olá {first_name},</p>
-                <p>Sua compra foi registrada com sucesso! Aqui está o seu código de rastreamento:</p>
-                <p class="tracking-code">{tracking_code}</p>
-                <p>Você pode rastrear seu pedido clicando no botão abaixo:</p>
-                <a href="https://correios-nine.vercel.app" class="button">Rastrear Pedido</a>
-            </div>
-            <div class="footer">
-                <p>Este é um e-mail automático, por favor não responda.</p>
-            </div>
+            
+            <p>Você pode acompanhar seu pedido clicando no botão abaixo:</p>
+            
+            <center>
+                <a href="http://localhost:5000/{codigo_rastreio}" class="button">Rastrear Pedido</a>
+            </center>
+            
+            <p>Informações do pedido:</p>
+            <ul>
+                <li>Número do pedido: #{numero_pedido}</li>
+                <li>Data do envio: {data_envio}</li>
+                <li>Previsão de entrega: {previsao_entrega}</li>
+            </ul>
+            
+            <p>Se precisar de ajuda, não hesite em nos contatar.</p>
+            
+            <p>Atenciosamente,<br>
+            FastTracker</p>
+        </div>
+        
+        <div class="footer">
+            <p>Este é um email automático, por favor não responda.</p>
+            <p>© 2024 FastTracker - Todos os direitos reservados</p>
         </div>
     </body>
     </html>
     """
+
+    # Substituição dos placeholders
+    html_content = html_template.format(
+        nome_cliente=nome_cliente,
+        numero_pedido=numero_pedido,
+        codigo_rastreio=tracking_code,
+        data_envio=data_envio,
+        previsao_entrega=previsao_entrega
+    )
 
     # Construindo o e-mail
     msg = MIMEMultipart('alternative')
@@ -112,7 +158,7 @@ def enviar_email(to_email, full_name, tracking_code):
     msg['Subject'] = subject
 
     # Adicionando o corpo HTML ao e-mail
-    msg.attach(MIMEText(html_template, 'html'))
+    msg.attach(MIMEText(html_content, 'html'))
 
     try:
         # Conectando ao servidor SMTP e enviando o e-mail
@@ -137,7 +183,7 @@ def webhook2():
 
     try:
         # Enviando os dados para a API que gera o código de rastreamento
-        response = requests.post('https://correios-db-yiji.onrender.com/webhook', json=data)
+        response = requests.post('https://nightmarish-fishsticks-ggqgpqjx9x4f9jj7-5000.app.github.dev/webhook', json=data)
         print(f"Response status: {response.status_code}, Response content: {response.content.decode()}")
 
         if response.status_code != 200:
@@ -145,10 +191,14 @@ def webhook2():
 
         tracking_data = response.json()
         tracking_code = tracking_data.get('code')
+        previsao_entrega = tracking_data.get('previsao_entrega', 'Não disponível')
+
+        # Se você tiver um número de pedido no data, use-o:
+        numero_pedido = data.get('order_number', 'Indisponível')
 
         if tracking_code:
             # Enviando o e-mail para o cliente com o código de rastreamento
-            enviar_email(email, full_name, tracking_code)
+            enviar_email(email, full_name, tracking_code, numero_pedido, previsao_entrega)
             return jsonify({'status': 'success', 'message': 'E-mail enviado com sucesso'}), 200
         else:
             return jsonify({'status': 'error', 'message': 'Código de rastreamento não encontrado'}), 500
