@@ -8,9 +8,9 @@ from datetime import datetime
 app = Flask(__name__)
 
 def enviar_email(to_email, full_name, tracking_code, numero_pedido, previsao_entrega):
-    from_email = "envio@rastreamento-distribuidora.shop"
+    from_email = "promosaude@lojavitalife.com.br"
     from_name = "Rastreamento"
-    password = "695476Pc@"
+    password = "Googleads123@"
     smtp_server = "smtp.hostinger.com"
     smtp_port = 587
 
@@ -18,7 +18,8 @@ def enviar_email(to_email, full_name, tracking_code, numero_pedido, previsao_ent
     data_envio = datetime.now().strftime('%d/%m/%Y')
     subject = "Código de Rastreio do seu Pedido"
 
-    # Template HTML modificado: removemos o '#' antes dos placeholders
+    # Todas as chaves do CSS agora são {{ e }}
+    # Placeholders de variáveis continuam com {}
     html_template = """
     <!DOCTYPE html>
     <html lang="pt-BR">
@@ -27,41 +28,41 @@ def enviar_email(to_email, full_name, tracking_code, numero_pedido, previsao_ent
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Código de Rastreio do seu Pedido</title>
         <style>
-            body {
+            body {{
                 font-family: Arial, sans-serif;
                 line-height: 1.6;
                 color: #333;
                 max-width: 600px;
                 margin: 0 auto;
                 padding: 20px;
-            }
-            .logo {
+            }}
+            .logo {{
                 text-align: center;
                 margin-bottom: 20px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 gap: 10px;
-            }
-            .logo svg {
+            }}
+            .logo svg {{
                 width: 32px;
                 height: 32px;
                 color: #6a3de8;
-            }
-            .logo-text {
+            }}
+            .logo-text {{
                 color: #6a3de8;
                 font-size: 28px;
                 font-weight: bold;
                 text-decoration: none;
-            }
-            .container {
+            }}
+            .container {{
                 background-color: #f8f7ff;
                 border-radius: 8px;
                 padding: 20px;
                 margin-top: 20px;
                 border: 1px solid #e6e3ff;
-            }
-            .tracking-code {
+            }}
+            .tracking-code {{
                 background-color: #f0ebff;
                 padding: 15px;
                 border-radius: 5px;
@@ -69,8 +70,8 @@ def enviar_email(to_email, full_name, tracking_code, numero_pedido, previsao_ent
                 text-align: center;
                 margin: 20px 0;
                 border: 1px solid #d9d1ff;
-            }
-            .button {
+            }}
+            .button {{
                 display: inline-block;
                 padding: 10px 20px;
                 background-color: #6a3de8;
@@ -79,19 +80,19 @@ def enviar_email(to_email, full_name, tracking_code, numero_pedido, previsao_ent
                 border-radius: 5px;
                 margin-top: 15px;
                 transition: background-color 0.3s;
-            }
-            .button:hover {
+            }}
+            .button:hover {{
                 background-color: #5632c0;
-            }
-            h2 {
+            }}
+            h2 {{
                 color: #6a3de8;
-            }
-            .footer {
+            }}
+            .footer {{
                 margin-top: 30px;
                 font-size: 12px;
                 color: #666;
                 text-align: center;
-            }
+            }}
         </style>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     </head>
@@ -121,13 +122,6 @@ def enviar_email(to_email, full_name, tracking_code, numero_pedido, previsao_ent
                 <a href="http://localhost:5000/{codigo_rastreio}" class="button">Rastrear Pedido</a>
             </center>
             
-            <p>Informações do pedido:</p>
-            <ul>
-                <li>Número do pedido: {numero_pedido}</li>
-                <li>Data do envio: {data_envio}</li>
-                <li>Previsão de entrega: {previsao_entrega}</li>
-            </ul>
-            
             <p>Se precisar de ajuda, não hesite em nos contatar.</p>
             
             <p>Atenciosamente,<br>
@@ -142,7 +136,6 @@ def enviar_email(to_email, full_name, tracking_code, numero_pedido, previsao_ent
     </html>
     """
 
-    # Substituir os placeholders
     html_content = html_template.format(
         nome_cliente=nome_cliente,
         numero_pedido=numero_pedido,
@@ -179,7 +172,6 @@ def webhook2():
         return jsonify({'status': 'error', 'message': 'Dados incompletos'}), 400
 
     try:
-        # Requisição ao backend de rastreio
         response = requests.post('https://nightmarish-fishsticks-ggqgpqjx9x4f9jj7-5000.app.github.dev/webhook', json=data)
         print(f"Response status: {response.status_code}, Response content: {response.content.decode()}")
 
@@ -189,8 +181,6 @@ def webhook2():
         tracking_data = response.json()
         tracking_code = tracking_data.get('code')
         previsao_entrega = tracking_data.get('previsao_entrega', 'Não disponível')
-        
-        # Caso o número do pedido não esteja disponível, usar um valor padrão
         numero_pedido = data.get('order_number', 'Indisponível')
 
         if tracking_code:
