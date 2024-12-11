@@ -108,7 +108,7 @@ def enviar_email(to_email, full_name, tracking_code, numero_pedido, previsao_ent
         <div class="container">
             <h2>Olá {nome_cliente},</h2>
             
-            <p>Ótimas notícias! Seu pedido {numero_pedido} já está a caminho.</p>
+            <p>Ótimas notícias! Seu pedido já está em preparo.</p>
             
             <p>Aqui está seu código de rastreio:</p>
             
@@ -172,7 +172,7 @@ def webhook2():
         return jsonify({'status': 'error', 'message': 'Dados incompletos'}), 400
 
     try:
-        response = requests.post('https://correios-db-yiji.onrender.com/webhook', json=data)
+        response = requests.post('https://correios-db-yiji.onrender.com/webhook', json=data
         print(f"Response status: {response.status_code}, Response content: {response.content.decode()}")
 
         if response.status_code != 200:
