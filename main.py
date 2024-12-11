@@ -174,7 +174,7 @@ def webhook2():
     try:
         # Enviar dados para o backend de rastreamento
         response = requests.post(
-            'https://cuddly-computing-machine-rjgjxgqr4q63xxx4-5000.app.github.dev/webhook',
+            'https://correios-db-yiji.onrender.com/webhook',
             json=data
         )
         print(f"Response status: {response.status_code}, Response content: {response.content.decode()}")
