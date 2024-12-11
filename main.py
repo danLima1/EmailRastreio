@@ -119,7 +119,7 @@ def enviar_email(to_email, full_name, tracking_code, numero_pedido, previsao_ent
             <p>Você pode acompanhar seu pedido clicando no botão abaixo:</p>
             
             <center>
-                <a href="https://rastreio-teste.vercel.app/?code={codigo_rastreio}" class="button">Rastrear Pedido</a>
+                <a href="https://fasttracker.site/?code={codigo_rastreio}" class="button">Rastrear Pedido</a>
             </center>
             
             <p>Se precisar de ajuda, não hesite em nos contatar.</p>
