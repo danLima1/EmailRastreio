@@ -161,7 +161,7 @@ def enviar_email(to_email, full_name, tracking_code, numero_pedido, previsao_ent
     except Exception as e:
         print(f"Erro ao enviar e-mail: {str(e)}")
 
-@app.route('/webhook2', methods=['POST'])
+@app.route('/webhook', methods=['POST'])
 def webhook2():
     data = request.json
     customer = data.get('customer', {})
