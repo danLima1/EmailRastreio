@@ -172,22 +172,35 @@ def webhook2():
         return jsonify({'status': 'error', 'message': 'Dados incompletos'}), 400
 
     try:
-        response = requests.post('https://correios-db-yiji.onrender.com/webhook', json=data)
+        # Enviar dados para o backend de rastreamento
+        response = requests.post(
+            'https://cuddly-computing-machine-rjgjxgqr4q63xxx4-5000.app.github.dev/webhook',
+            json=data
+        )
         print(f"Response status: {response.status_code}, Response content: {response.content.decode()}")
 
-        if response.status_code != 200:
+        # Verificar se a resposta foi bem-sucedida
+        if response.status_code not in [200, 201]:
             return jsonify({'status': 'error', 'message': 'Falha ao gerar código de rastreamento'}), 500
 
+        # Processar a resposta do backend de rastreamento
         tracking_data = response.json()
         tracking_code = tracking_data.get('code')
         previsao_entrega = tracking_data.get('previsao_entrega', 'Não disponível')
         numero_pedido = data.get('order_number', 'Indisponível')
 
-        if tracking_code:
-            enviar_email(email, full_name, tracking_code, numero_pedido, previsao_entrega)
-            return jsonify({'status': 'success', 'message': 'E-mail enviado com sucesso'}), 200
-        else:
+        # Verificar se o código foi gerado
+        if not tracking_code:
+            print("Erro: Código de rastreamento não encontrado na resposta.")
             return jsonify({'status': 'error', 'message': 'Código de rastreamento não encontrado'}), 500
+
+        # Enviar e-mail com os dados
+        enviar_email(email, full_name, tracking_code, numero_pedido, previsao_entrega)
+        return jsonify({'status': 'success', 'message': 'E-mail enviado com sucesso'}), 200
+
+    except requests.exceptions.RequestException as e:
+        print(f"Erro ao se comunicar com o backend de rastreamento: {str(e)}")
+        return jsonify({'status': 'error', 'message': 'Falha na comunicação com o backend de rastreamento'}), 500
 
     except Exception as e:
         print(f"Erro no processamento do webhook: {str(e)}")
