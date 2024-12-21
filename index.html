@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-BR" dir="ltr">
+<head>
+    
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-11480717182"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'AW-11480717182');
+</script>
+
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Descrição">
+    <meta name="robots" content="noindex, nofollow">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="accept-cookies.html">
+    <meta property="og:title" content="Título">
+    <meta property="og:description" content="Descrição">
+    <meta property="og:image" content="./media/Images/ogimage.png">
+    <title>Aceitar Cookies</title>
+
+    <style>
+        /* Variáveis de cores do Google */
+        :root {
+            --google-blue: #4285F4;
+            --google-green: #34A853;
+            --google-yellow: #FBBC05;
+            --google-red: #EA4335;
+            --background-dark: rgba(0, 0, 0, 0.7);
+            --text-light: #fff;
+            --primary-bg: #fff;
+            --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition-speed: 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f1f3f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            transition: background-color var(--transition-speed);
+        }
+
+        /* Conteúdo do banner de cookies */
+        .cookie-banner {
+            width: 80vw;
+            max-width: 600px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            cursor: pointer;
+            transition: transform var(--transition-speed);
+        }
+
+        /* Sombra ao passar o mouse sobre o banner */
+        .cookie-banner:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Título */
+        .cookie-banner h2 {
+            font-size: 24px;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        /* Descrição */
+        .cookie-banner p {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 30px;
+        }
+
+        /* Botões de Aceitar/Rejeitar */
+        .cookie-btn {
+            display: inline-block;
+            padding: 12px 20px;
+            border-radius: 30px;
+            margin: 10px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color var(--transition-speed), transform var(--transition-speed);
+        }
+
+        .cookie-btn:hover {
+            transform: translateY(-3px);
+        }
+
+        /* Botão Aceitar - Google Azul */
+        .accept-btn {
+            background-color: var(--google-blue);
+            color: white;
+            border: none;
+        }
+
+        .accept-btn:hover {
+            background-color: #357ae8;
+        }
+
+        /* Botão Rejeitar - Google Cinza */
+        .reject-btn {
+            background-color: #e4e4e4;
+            color: #333;
+            border: none;
+        }
+
+        .reject-btn:hover {
+            background-color: #c2c2c2;
+        }
+
+        /* Responsividade para telas pequenas */
+        @media (max-width: 768px) {
+            .cookie-banner {
+                width: 90vw;
+                padding: 15px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Banner de Cookies com aparência Google -->
+    <div class="cookie-banner" id="cookieBanner">
+        <h2>Este site usa cookies</h2>
+        <p>Para oferecer uma melhor experiência, usamos cookies. Ao continuar navegando, você concorda com nossa política de privacidade.</p>
+        <div>
+            <!-- Botões de Aceitar e Rejeitar -->
+            <button class="cookie-btn accept-btn" id="acceptBtn">Aceitar</button>
+            <button class="cookie-btn reject-btn" id="rejectBtn">Rejeitar</button>
+        </div>
+    </div>
+
+    <script>
+        // URL para redirecionamento após aceitar cookies
+        const redirectURL = "https://awepinkbrasil.shop";
+
+        // Função de redirecionamento
+        function redirectToSite() {
+            window.location.href = redirectURL;
+        }
+
+        // Ação ao clicar em "Aceitar"
+        document.getElementById('acceptBtn').addEventListener('click', function() {
+            // Redireciona para o site
+            redirectToSite();
+        });
+
+        // Ação ao clicar em "Rejeitar" (pode adicionar ação se necessário)
+        document.getElementById('rejectBtn').addEventListener('click', function() {
+            // Fechar o banner ou outra ação
+            document.getElementById('cookieBanner').style.display = 'none';
+        });
+    </script>
+
+</body>
+</html>
