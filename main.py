@@ -11,7 +11,7 @@ def enviar_email(to_email, full_name, tracking_code, numero_pedido, previsao_ent
     from_email = "suporte@fast-tracker.site"
     from_name = "Rastreamento"
     password = "Batata135-"
-    smtp_server = "smtp.hostinger.com"
+    smtp_server = "smtp.titan.email"
     smtp_port = 587
 
     nome_cliente = full_name
