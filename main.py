@@ -8,7 +8,7 @@ from datetime import datetime
 app = Flask(__name__)
 
 def enviar_email(to_email, full_name, tracking_code, numero_pedido, previsao_entrega):
-    from_email = "suporte@fasttracker.site"
+    from_email = "suporte@fast-tracker.site"
     from_name = "Rastreamento"
     password = "Batata135-"
     smtp_server = "smtp.hostinger.com"
