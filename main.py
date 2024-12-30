@@ -7,6 +7,12 @@ from datetime import datetime
 
 app = Flask(__name__)
 
+# Variáveis globais para contagem e logs
+success_count = 0
+error_count = 0
+error_logs = []
+total_sends = 0  # Quantidade total de tentativas (bem-sucedidas ou não)
+
 def enviar_email(to_email, full_name, tracking_code, numero_pedido, previsao_entrega):
     from_email = "suporte@fast-tracker.site"
     from_name = "Rastreamento"
@@ -18,8 +24,6 @@ def enviar_email(to_email, full_name, tracking_code, numero_pedido, previsao_ent
     data_envio = datetime.now().strftime('%d/%m/%Y')
     subject = "Código de Rastreio do seu Pedido"
 
-    # Todas as chaves do CSS agora são {{ e }}
-    # Placeholders de variáveis continuam com {}
     html_template = """
     <!DOCTYPE html>
     <html lang="pt-BR">
@@ -158,11 +162,19 @@ def enviar_email(to_email, full_name, tracking_code, numero_pedido, previsao_ent
         server.sendmail(from_email, to_email, msg.as_string())
         server.quit()
         print(f"E-mail enviado para {to_email}.")
+        return True, None
     except Exception as e:
         print(f"Erro ao enviar e-mail: {str(e)}")
+        return False, str(e)
 
 @app.route('/webhook', methods=['POST'])
 def webhook2():
+    """
+    Endpoint que recebe dados, envia ao backend de rastreamento e dispara e-mail.
+    Atualiza a contagem de sucessos/erros e registra logs de erro se necessário.
+    """
+    global success_count, error_count, error_logs, total_sends
+
     data = request.json
     customer = data.get('customer', {})
     email = customer.get('email')
@@ -170,6 +182,9 @@ def webhook2():
 
     if not email or not full_name:
         return jsonify({'status': 'error', 'message': 'Dados incompletos'}), 400
+
+    # Incrementamos aqui para dizer que houve uma tentativa de envio (independente de sucesso ou erro)
+    total_sends += 1
 
     try:
         # Enviar dados para o backend de rastreamento
@@ -181,7 +196,14 @@ def webhook2():
 
         # Verificar se a resposta foi bem-sucedida
         if response.status_code not in [200, 201]:
-            return jsonify({'status': 'error', 'message': 'Falha ao gerar código de rastreamento'}), 500
+            error_count += 1
+            error_msg = 'Falha ao gerar código de rastreamento'
+            error_logs.append({
+                'timestamp': datetime.now().isoformat(),
+                'error': error_msg,
+                'details': response.content.decode()
+            })
+            return jsonify({'status': 'error', 'message': error_msg}), 500
 
         # Processar a resposta do backend de rastreamento
         tracking_data = response.json()
@@ -192,19 +214,73 @@ def webhook2():
         # Verificar se o código foi gerado
         if not tracking_code:
             print("Erro: Código de rastreamento não encontrado na resposta.")
+            error_count += 1
+            error_logs.append({
+                'timestamp': datetime.now().isoformat(),
+                'error': 'Código de rastreamento não encontrado',
+                'details': str(tracking_data)
+            })
             return jsonify({'status': 'error', 'message': 'Código de rastreamento não encontrado'}), 500
 
         # Enviar e-mail com os dados
-        enviar_email(email, full_name, tracking_code, numero_pedido, previsao_entrega)
-        return jsonify({'status': 'success', 'message': 'E-mail enviado com sucesso'}), 200
+        envio_ok, erro_envio = enviar_email(email, full_name, tracking_code, numero_pedido, previsao_entrega)
+
+        if envio_ok:
+            success_count += 1
+            return jsonify({'status': 'success', 'message': 'E-mail enviado com sucesso'}), 200
+        else:
+            error_count += 1
+            error_logs.append({
+                'timestamp': datetime.now().isoformat(),
+                'error': 'Erro ao enviar e-mail',
+                'details': erro_envio
+            })
+            return jsonify({'status': 'error', 'message': 'Erro ao enviar e-mail'}), 500
 
     except requests.exceptions.RequestException as e:
         print(f"Erro ao se comunicar com o backend de rastreamento: {str(e)}")
+        error_count += 1
+        error_logs.append({
+            'timestamp': datetime.now().isoformat(),
+            'error': 'Falha na comunicação com o backend de rastreamento',
+            'details': str(e)
+        })
         return jsonify({'status': 'error', 'message': 'Falha na comunicação com o backend de rastreamento'}), 500
 
     except Exception as e:
         print(f"Erro no processamento do webhook: {str(e)}")
+        error_count += 1
+        error_logs.append({
+            'timestamp': datetime.now().isoformat(),
+            'error': 'Erro interno do servidor',
+            'details': str(e)
+        })
         return jsonify({'status': 'error', 'message': 'Erro interno do servidor'}), 500
+
+@app.route('/status', methods=['GET'])
+def get_status():
+    """
+    Retorna a contagem total de sucessos, falhas e logs de erro.
+    """
+    return jsonify({
+        'success_count': success_count,
+        'error_count': error_count,
+        'error_logs': error_logs
+    }), 200
+
+@app.route('/progresso', methods=['GET'])
+def get_progress():
+    """
+    Retorna quantos envios foram processados em relação ao total de tentativas.
+    Aqui, total_sends representa quantas vezes o endpoint /webhook foi chamado.
+    """
+    processed = success_count + error_count
+    return jsonify({
+        'total_sends': total_sends,
+        'processed': processed,
+        'success_count': success_count,
+        'error_count': error_count
+    }), 200
 
 if __name__ == '__main__':
     app.run(debug=True)
