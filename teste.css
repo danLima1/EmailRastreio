@@ -26,8 +26,8 @@
 /********** check style  **********/
 
 .typebot-chat-view > .flex:first-child {
-    padding-top: 40px !important; /* Adicionado espaçamento no topo */
-    padding-bottom: 20px !important; /* Mantém o espaçamento inferior */
+    padding-top: 50px !important; /* Manter o padding original */
+    padding-bottom: 20px !important; /* Reduzir o padding inferior */
 }
 
 .typebot-container {
@@ -47,12 +47,6 @@
 .typebot-guest-bubble {
     position: relative;
     border-radius: 20px !important; /* Tornar arredondado */
-    padding: 2px !important; /* Reduzido de p-[1px] */
-    margin: 0 !important; /* Remove margem */
-    display: flex;
-    align-items: center; /* Centraliza verticalmente o conteúdo */
-    justify-content: center;
-    min-height: auto !important; /* Remove qualquer altura mínima */
 }
 
 /* Remover outras bordas de pontas se existirem */
@@ -310,22 +304,4 @@ typebot-standard {
 .guest-container .flex.flex-col.gap-1 {
     gap: 2px !important; /* De 4px para 2px */
     margin-bottom: 0 !important; /* Remove margem inferior */
-}
-
-/* Ajustar o padding vertical no span das bolhas de usuário */
-.typebot-guest-bubble span {
-    padding: 7px 15px !important; /* Adicionar padding vertical e horizontal */
-    line-height: 1.4 !important; /* Melhorar legibilidade */
-}
-
-/* Ajustar o padding vertical no span das bolhas do bot */
-.typebot-host-bubble span {
-    padding: 7px 15px !important; /* Restaurar padding vertical e horizontal */
-    line-height: 1.4 !important; /* Melhorar legibilidade */
-}
-
-/* Ajustar a classe .animate-fade-in para evitar espaçamentos */
-.animate-fade-in {
-    margin: 0 !important; /* Remove margens adicionadas pela animação */
-    padding: 0 !important; /* Remove paddings adicionados pela animação */
 }
