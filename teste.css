@@ -288,23 +288,27 @@ typebot-standard {
     z-index: 99;
 }
 
-/* Novas regras para reduzir espaçamento */
+/* ----------------------------------- */
+/* CSS Personalizado para Reduzir Espaçamento */
+/* ----------------------------------- */
+
+/* Reduzir o gap na div .guest-container de 8px para 4px */
 .guest-container {
-    margin-left: 10px !important; /* ou 0 */
     gap: 4px !important;
 }
 
-.guest-container .flex.flex-col {
+/* Reduzir o gap na div interna de 4px para 2px */
+.guest-container .flex.flex-col.gap-1 {
     gap: 2px !important;
 }
 
-.typebot-guest-bubble {
-    padding: 5px !important;
+/* Opcional: Reduzir padding interno do span */
+.typebot-guest-bubble span {
+    padding-top: 4px !important;
+    padding-bottom: 4px !important;
 }
 
-.typebot-guest-bubble span {
-    padding-left: 10px !important;
-    padding-right: 10px !important;
-    padding-top: 5px !important;
-    padding-bottom: 5px !important;
+/* Remover margens inferiores adicionadas por elementos irmãos, se necessário */
+.guest-container > .flex.flex-col.gap-1.items-end {
+    margin-bottom: 0 !important;
 }
