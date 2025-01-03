@@ -26,7 +26,7 @@
 /********** check style  **********/
 
 .typebot-chat-view > .flex:first-child {
-    padding-top: 40px !important; /* Aumentado para criar espaçamento */
+    padding-top: 40px !important; /* Adicionado espaçamento no topo */
     padding-bottom: 20px !important; /* Mantém o espaçamento inferior */
 }
 
@@ -326,12 +326,6 @@ typebot-standard {
     margin-bottom: 0 !important;
 }
 
-/* Remover margens e paddings de todos os elementos dentro de .guest-container */
-.guest-container * {
-    margin: 0 !important;
-    padding: 0 !important;
-}
-
 /* Ajustar a classe .animate-fade-in para evitar espaçamentos */
 .animate-fade-in {
     margin: 0 !important; /* Remove margens adicionadas pela animação */
@@ -342,13 +336,13 @@ typebot-standard {
 /* CSS Personalizado para Restaurar Padding das Bolhas de Usuário */
 /* ----------------------------------- */
 
-/* Restaurar padding nas bolhas de mensagem do usuário */
+/* Restaurar padding nas bolhas de mensagem do bot */
 .typebot-host-bubble span {
     padding: 7px 15px !important; /* Restaurar padding vertical e horizontal */
     line-height: 1.4 !important; /* Melhorar legibilidade */
 }
 
-/* Garantir que a bolha do usuário mantenha seu padding */
+/* Garantir que a bolha do bot mantenha seu padding */
 .typebot-host-bubble {
     padding: 0 !important; /* Ajustar conforme necessário */
 }
