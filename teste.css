@@ -312,37 +312,20 @@ typebot-standard {
     margin-bottom: 0 !important; /* Remove margem inferior */
 }
 
-/* Reduzir o padding vertical no span de 7px para 4px */
+/* Ajustar o padding vertical no span das bolhas de usuário */
 .typebot-guest-bubble span {
-    padding-top: 4px !important; /* De py-[7px] para 4px */
-    padding-bottom: 4px !important;
-    padding-left: 15px !important; /* Mantém padding horizontal */
-    padding-right: 15px !important;
-    line-height: 1.2 !important; /* Reduz espaçamento entre linhas */
+    padding: 7px 15px !important; /* Adicionar padding vertical e horizontal */
+    line-height: 1.4 !important; /* Melhorar legibilidade */
 }
 
-/* Remover margens inferiores adicionadas por elementos irmãos, se necessário */
-.guest-container > .flex.flex-col.gap-1.items-end {
-    margin-bottom: 0 !important;
+/* Ajustar o padding vertical no span das bolhas do bot */
+.typebot-host-bubble span {
+    padding: 7px 15px !important; /* Restaurar padding vertical e horizontal */
+    line-height: 1.4 !important; /* Melhorar legibilidade */
 }
 
 /* Ajustar a classe .animate-fade-in para evitar espaçamentos */
 .animate-fade-in {
     margin: 0 !important; /* Remove margens adicionadas pela animação */
     padding: 0 !important; /* Remove paddings adicionados pela animação */
-}
-
-/* ----------------------------------- */
-/* CSS Personalizado para Restaurar Padding das Bolhas de Usuário */
-/* ----------------------------------- */
-
-/* Restaurar padding nas bolhas de mensagem do bot */
-.typebot-host-bubble span {
-    padding: 7px 15px !important; /* Restaurar padding vertical e horizontal */
-    line-height: 1.4 !important; /* Melhorar legibilidade */
-}
-
-/* Garantir que a bolha do bot mantenha seu padding */
-.typebot-host-bubble {
-    padding: 0 !important; /* Ajustar conforme necessário */
 }
