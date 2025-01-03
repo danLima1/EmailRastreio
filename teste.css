@@ -1,56 +1,56 @@
 /********** check style  **********/
 .typebot-host-bubble {
-    padding-right: 12px;
+  padding-right: 12px;
+}
+
+#checkIcon {
+  stroke-dasharray: 40;
+  stroke-dashoffset: 40;
+  z-index: 99;
+}
+
+#checkIcon path:nth-child(1) {
+  animation: showIcon 250ms ease forwards;
+  animation-delay: 500ms;
+}
+
+#checkIcon path:nth-child(2) {
+  animation: showIcon 250ms ease forwards;
+  animation-delay: 400ms;
+}
+
+@keyframes showIcon {
+  to {
+    stroke-dashoffset: 0
   }
-  
-  #checkIcon {
-    stroke-dasharray: 40;
-    stroke-dashoffset: 40;
-    z-index: 99;
-  }
-  
-  #checkIcon path:nth-child(1) {  
-    animation: showIcon 250ms ease forwards;
-    animation-delay: 500ms;
-  }
-  
-  
-  #checkIcon path:nth-child(2) {  
-    animation: showIcon 250ms ease forwards;
-    animation-delay: 400ms;
-  }
-  
-  
-  @keyframes showIcon {
-    to { stroke-dashoffset: 0 };
-  }
-  /********** check style  **********/
-  
+}
+/********** check style  **********/
+
 
 .typebot-chat-view > .flex:first-child {
-    padding-top: 50px;
-    padding-bottom: 50px;
+  padding-top: 50px;
+  padding-bottom: 50px;
 }
 
 .typebot-container {
-    background-size: initial!important;
-    background-repeat: repeat-x!important;
+  background-size: initial !important;
+  background-repeat: repeat-x !important;
 }
 
-.typebot-host-bubble>.bubble-typing {
+.typebot-host-bubble > .bubble-typing {
   border-radius: 0 5px 5px 5px;
 }
 
-.typebot-host-bubble>.bubble-typing:after {
-    position: absolute;
-    content: "";
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 0px 10px 10px 0;
-    border-color: transparent #fff transparent transparent;
-    top: 0;
-    left: -10px;
+.typebot-host-bubble > .bubble-typing:after {
+  position: absolute;
+  content: "";
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0px 10px 10px 0;
+  border-color: transparent #fff transparent transparent;
+  top: 0;
+  left: -10px;
 }
 
 .typebot-guest-bubble {
@@ -67,11 +67,11 @@
 }
 
 .typebot-guest-bubble:after {
-    border-width: 0px 0 10px 10px;
-    border-color: transparent transparent transparent #e1ffc7;
-    top: 0;
-    right: -10px;
-    border-style: solid;
+  border-width: 0px 0 10px 10px;
+  border-color: transparent transparent transparent #e1ffc7;
+  top: 0;
+  right: -10px;
+  border-style: solid;
 }
 
 iframe[src=""] {
@@ -88,20 +88,20 @@ iframe[src=""] {
 }
 
 a#lite-badge {
-  display: none!important;
+  display: none !important;
 }
 
-/* BotÃ£o do input */
+/* Botão do input */
 .typebot-input .typebot-button {
   content: "";
   background: rgba(0, 138, 134, 1);
-  border-radius: 50%; 
+  border-radius: 50%;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 50px; 
-  height: 50px; 
+  width: 50px;
+  height: 50px;
   border: none;
   font-size: 0px;
   color: transparent;
@@ -119,19 +119,18 @@ a#lite-badge {
   background-image: url('data:image/svg+xml;charset=utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="19px"><path d="M476.59 227.05l-.16-.07L49.35 49.84A23.56 23.56 0 0027.14 52 24.65 24.65 0 0016 72.59v113.29a24 24 0 0019.52 23.57l232.93 43.07a4 4 0 010 7.86L35.53 303.45A24 24 0 0016 327v113.31A23.57 23.57 0 0026.59 460a23.94 23.94 0 0013.22 4 24.55 24.55 0 009.52-1.93L476.4 285.94l.19-.09a32 32 0 000-58.8z" fill="white"/></svg>');
 }
 
-/* Oculta o Ã­cone anterior*/
+/* Oculta o ícone anterior */
 .typebot-input .typebot-button .send-icon {
-  display: none; 
+  display: none;
 }
 
-/* Corrigir cor do botÃ£o */
+/* Corrigir cor do botão quando desabilitado */
 .disabled\:opacity-50:disabled {
-    opacity: 100%;
+  opacity: 100%;
 }
 
-
-
-audio::-webkit-media-controls-play-button{
+/* Ajustes de áudio e vídeo */
+audio::-webkit-media-controls-play-button {
   background-color: #fff;
 }
 
@@ -139,52 +138,59 @@ audio::-webkit-media-controls-panel {
   background-color: #fff;
   background-size: 200px 2000px;
 }
+
 audio::-webkit-media-controls-current-time-display {
   position: absolute;
   margin-top: 40px;
   margin-left: 50px;
   color: #666;
 }
+
 audio::-webkit-media-controls-time-remaining-display {
   display: none;
 }
 
 /* HIDE DOWNLOAD BUTTON OF AUDIO */
 audio::-internal-media-controls-download-button {
-    display:none;
+  display: none;
 }
+
 audio::-webkit-media-controls-enclosure {
-    overflow:hidden;
+  overflow: hidden;
 }
 
 audio::-webkit-media-controls-panel {
-    width: calc(100% + 30px); /* Adjust as needed */
-} 
+  width: calc(100% + 30px);
+}
 
 /* HIDE DOWNLOAD BUTTON OF VIDEO */
 video::-internal-media-controls-download-button {
-    display:none;
+  display: none;
 }
+
 video::-webkit-media-controls-enclosure {
-    overflow:hidden;
+  overflow: hidden;
 }
 
 video::-webkit-media-controls-panel {
-    width: calc(100% + 30px); /* Adjust as needed */
+  width: calc(100% + 30px);
 }
 
- .hide {
-    display: none!important;
-  }
-  typebot-standard {
-    position: relative;
-    z-index: 99;
-  }
-  #__next {
-    position: relative;
-    z-index: 99;
+.hide {
+  display: none !important;
 }
-  /* User Bar */
+
+typebot-standard {
+  position: relative;
+  z-index: 99;
+}
+
+#__next {
+  position: relative;
+  z-index: 99;
+}
+
+/* User Bar */
 .user-bar {
   width: 100%;
   height: 70px;
@@ -205,22 +211,21 @@ video::-webkit-media-controls-panel {
 }
 
 .user-bar div {
-    float: left;
-    transform: translateY(-50%);
-    position: relative;
-    top: 50%;
-    margin-left: 10px;
+  float: left;
+  transform: translateY(-50%);
+  position: relative;
+  top: 50%;
+  margin-left: 10px;
 }
 
 .user-bar .actions {
-float: right;
-margin: 0 30px 0 0;
+  float: right;
+  margin: 0 30px 0 0;
 }
 
 .user-bar .actions.more {
   margin: 0 12px 0 32px;
 }
-
 
 .user-bar .avatar {
   margin: 0 0 0 5px;
@@ -256,18 +261,32 @@ margin: 0 30px 0 0;
   letter-spacing: 0;
 }
 
-  /* BotÃ£o do input */
+/* ----------------------------------- */
+/* AJUSTE PARA O INPUT FICAR COM 50PX  */
+/* E ALINHADO COM O BOTÃO              */
+/* ----------------------------------- */
+.typebot-input {
+  display: flex !important;       /* Mantém os elementos (input e botão) lado a lado */
+  align-items: center !important; /* Alinha verticalmente */
+  gap: 8px;                       /* Espaço horizontal entre o input e o botão (opcional) */
+}
 
+/* Ajuste no campo de texto, seja um <textarea> ou <input> */
+.typebot-input .typebot-text-area,
+.typebot-input .typebot-text-field {
+  box-sizing: border-box !important;
+  width: 100%;                 /* O input preenche o restante do espaço */
+  height: 50px !important;     /* Mesma altura do botão */
+  padding: 0 15px !important;  /* Mais “respiro” interno */
+  border-radius: 25px !important;
+  border: 1px solid #ccc;      /* Ajuste conforme necessidade */
+  font-size: 14px !important;
+  outline: none !important;
+}
 
+/* Caso prefira sem borda, use border: none; e ajuste outras propriedades conforme o layout */
 
-
-
-
-/* Estilo da caixa do input */
-
-
-
-/* Corrigir cor do botÃ£o */
+/* Corrigir cor do botão ao desabilitar (mantido do seu código) */
 .disabled\:opacity-50:disabled {
-    opacity: 100%;
+  opacity: 100%;
 }
