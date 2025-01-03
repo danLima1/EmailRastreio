@@ -287,3 +287,24 @@ typebot-standard {
     position: relative;
     z-index: 99;
 }
+
+/* Novas regras para reduzir espaçamento */
+.guest-container {
+    margin-left: 10px !important; /* ou 0 */
+    gap: 4px !important;
+}
+
+.guest-container .flex.flex-col {
+    gap: 2px !important;
+}
+
+.typebot-guest-bubble {
+    padding: 5px !important;
+}
+
+.typebot-guest-bubble span {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+}
