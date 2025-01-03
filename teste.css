@@ -1,3 +1,4 @@
+/********** check style  **********/
 .typebot-host-bubble {
   padding-right: 12px;
 }
@@ -20,11 +21,10 @@
 
 @keyframes showIcon {
   to {
-    stroke-dashoffset: 0
+    stroke-dashoffset: 0;
   }
 }
 /********** check style  **********/
-
 
 .typebot-chat-view > .flex:first-child {
   padding-top: 50px;
@@ -63,14 +63,10 @@
   width: 0;
   height: 0;
   border-style: solid;
-}
-
-.typebot-guest-bubble:after {
   border-width: 0px 0 10px 10px;
   border-color: transparent transparent transparent #e1ffc7;
   top: 0;
   right: -10px;
-  border-style: solid;
 }
 
 iframe[src=""] {
@@ -91,8 +87,31 @@ a#lite-badge {
 }
 
 /* Botão do input */
+.typebot-input {
+  display: flex !important;        /* Flex container */
+  align-items: center !important;  /* Alinha verticalmente */
+  gap: 8px;                         /* Espaçamento entre o input e o botão */
+  width: 100%;                      /* Ocupa toda a largura disponível */
+  max-width: 600px;                 /* Limite opcional para a largura */
+  margin: 0 auto;                   /* Centraliza o container */
+  padding: 10px;                    /* Padding interno do container */
+  box-sizing: border-box;           /* Inclui padding e border no cálculo da largura */
+}
+
+.typebot-input .typebot-text-area,
+.typebot-input .typebot-text-field {
+  box-sizing: border-box !important;
+  flex: 1 1 auto;                 /* Permite que o input cresça e encolha conforme necessário */
+  min-width: 150px;               /* Largura mínima para evitar ficar muito pequeno */
+  height: 50px !important;        /* Mesma altura do botão */
+  padding: 0 15px !important;     /* Padding interno para conforto */
+  border-radius: 25px !important; /* Arredondamento para combinar com o botão */
+  border: 1px solid #ccc;         /* Borda do input */
+  font-size: 14px !important;     /* Tamanho da fonte */
+  outline: none !important;
+}
+
 .typebot-input .typebot-button {
-  content: "";
   background: rgba(0, 138, 134, 1);
   border-radius: 50%;
   position: relative;
@@ -102,23 +121,24 @@ a#lite-badge {
   width: 50px;
   height: 50px;
   border: none;
-  font-size: 0px;
-  color: transparent;
+  cursor: pointer;
+  flex-shrink: 0; /* Impede que o botão encolha */
 }
 
 .typebot-input .typebot-button::before {
   content: "";
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
   width: 25px;
   height: 25px;
   background-repeat: no-repeat;
   background-size: cover;
   background-image: url('data:image/svg+xml;charset=utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="19px"><path d="M476.59 227.05l-.16-.07L49.35 49.84A23.56 23.56 0 0027.14 52 24.65 24.65 0 0016 72.59v113.29a24 24 0 0019.52 23.57l232.93 43.07a4 4 0 010 7.86L35.53 303.45A24 24 0 0016 327v113.31A23.57 23.57 0 0026.59 460a23.94 23.94 0 0013.22 4 24.55 24.55 0 009.52-1.93L476.4 285.94l.19-.09a32 32 0 000-58.8z" fill="white"/></svg>');
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
-/* Oculta o ícone anterior */
+/* Oculta o ícone padrão de 'send' */
 .typebot-input .typebot-button .send-icon {
   display: none;
 }
@@ -199,7 +219,9 @@ typebot-standard {
   font-size: 24px;
   position: absolute;
   z-index: 99999;
-  display: block;
+  display: flex;                  /* Utiliza Flexbox para alinhamento */
+  align-items: center;            /* Centraliza verticalmente os itens */
+  justify-content: space-between; /* Espaça os itens */
   top: 0;
 }
 
@@ -210,16 +232,11 @@ typebot-standard {
 }
 
 .user-bar div {
-  float: left;
-  transform: translateY(-50%);
-  position: relative;
-  top: 50%;
   margin-left: 10px;
 }
 
 .user-bar .actions {
-  float: right;
-  margin: 0 30px 0 0;
+  margin-right: 30px;
 }
 
 .user-bar .actions.more {
@@ -227,7 +244,7 @@ typebot-standard {
 }
 
 .user-bar .avatar {
-  margin: 0 0 0 5px;
+  margin-left: 5px;
   width: 36px;
   height: 36px;
 }
@@ -242,50 +259,36 @@ typebot-standard {
 }
 
 .user-bar .name {
-  float: left;
   font-size: 17px;
   font-weight: 600;
   text-overflow: ellipsis;
   letter-spacing: 0.3px;
-  margin: 0 0 0 8px;
+  margin-left: 8px;
   overflow: hidden;
   white-space: nowrap;
 }
 
 .user-bar .status {
   display: block;
-  left: 0px;
   font-size: 13px;
   font-weight: 400;
-  letter-spacing: 0;
 }
 
 /* ----------------------------------- */
 /* AJUSTE PARA O INPUT FICAR COM 50PX  */
 /* E ALINHADO COM O BOTÃO              */
 /* ----------------------------------- */
-.typebot-input {
-  display: flex !important;       /* Mantém os elementos (input e botão) lado a lado */
-  align-items: center !important; /* Alinha verticalmente */
-  gap: 8px;                       /* Espaço horizontal entre o input e o botão (opcional) */
-}
 
-/* Ajuste no campo de texto, seja um <textarea> ou <input> */
+/* Garantir que em todas as telas o input e o botão mantenham altura de 50px */
 .typebot-input .typebot-text-area,
-.typebot-input .typebot-text-field {
-  box-sizing: border-box !important;
-  width: 100%;                 /* O input preenche o restante do espaço */
-  height: 50px !important;     /* Mesma altura do botão */
-  padding: 0 15px !important;  /* Mais “respiro” interno */
-  border-radius: 25px !important;
-  border: 1px solid #ccc;      /* Ajuste conforme necessidade */
-  font-size: 14px !important;
-  outline: none !important;
+.typebot-input .typebot-text-field,
+.typebot-input .typebot-button {
+  height: 50px !important;
 }
 
-/* Caso prefira sem borda, use border: none; e ajuste outras propriedades conforme o layout */
-
-/* Corrigir cor do botão ao desabilitar (mantido do seu código) */
-.disabled\:opacity-50:disabled {
-  opacity: 100%;
+/* Opcional: Adicionar transições para suavizar mudanças */
+.typebot-input,
+.typebot-input .typebot-text-area,
+.typebot-input .typebot-button {
+  transition: all 0.3s ease;
 }
