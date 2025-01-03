@@ -101,7 +101,7 @@ function criarBarra(var_nome, var_avatar) {
         link.id   = cssId;
         link.rel  = 'stylesheet';
         link.type = 'text/css';
-        link.href = 'https://cdn.jsdelivr.net/gh/danLima1/EmailRastreio@7834992cc3f5cd40760e187f2aa2c582fcaa5d99/teste.css';
+        link.href = 'https://cdn.jsdelivr.net/gh/danLima1/EmailRastreio@629de199405a402c7fd7c7c50508ddb5b931426d/teste.css';
         link.media = 'all';
         head.appendChild(link);
     }
