@@ -26,8 +26,8 @@
 /********** check style  **********/
 
 .typebot-chat-view > .flex:first-child {
-    padding-top: 50px;
-    padding-bottom: 50px;
+    padding-top: 20px !important; /* Reduzido de 50px para 20px */
+    padding-bottom: 20px !important; /* Reduzido de 50px para 20px */
 }
 
 .typebot-container {
@@ -47,6 +47,12 @@
 .typebot-guest-bubble {
     position: relative;
     border-radius: 20px !important; /* Tornar arredondado */
+    padding: 2px !important; /* Reduzido de p-[1px] */
+    margin: 0 !important; /* Remove margem */
+    display: flex;
+    align-items: center; /* Centraliza verticalmente o conteúdo */
+    justify-content: center;
+    min-height: auto !important; /* Remove qualquer altura mínima */
 }
 
 /* Remover outras bordas de pontas se existirem */
@@ -289,26 +295,45 @@ typebot-standard {
 }
 
 /* ----------------------------------- */
-/* CSS Personalizado para Reduzir Espaçamento */
+/* CSS Personalizado para Reduzir Espaçamento Vertical */
 /* ----------------------------------- */
 
 /* Reduzir o gap na div .guest-container de 8px para 4px */
 .guest-container {
-    gap: 4px !important;
+    gap: 4px !important; /* De 8px para 4px */
+    /* Manter o margin-left intacto */
+    margin-left: 50px !important;
+    margin-bottom: 0 !important; /* Remove margem inferior */
 }
 
 /* Reduzir o gap na div interna de 4px para 2px */
 .guest-container .flex.flex-col.gap-1 {
-    gap: 2px !important;
+    gap: 2px !important; /* De 4px para 2px */
+    margin-bottom: 0 !important; /* Remove margem inferior */
 }
 
-/* Opcional: Reduzir padding interno do span */
+/* Reduzir o padding vertical no span de 7px para 4px */
 .typebot-guest-bubble span {
-    padding-top: 4px !important;
+    padding-top: 4px !important; /* De py-[7px] para 4px */
     padding-bottom: 4px !important;
+    padding-left: 15px !important; /* Mantém padding horizontal */
+    padding-right: 15px !important;
+    line-height: 1.2 !important; /* Reduz espaçamento entre linhas */
 }
 
 /* Remover margens inferiores adicionadas por elementos irmãos, se necessário */
 .guest-container > .flex.flex-col.gap-1.items-end {
     margin-bottom: 0 !important;
+}
+
+/* Remover margens e paddings de todos os elementos dentro de .guest-container */
+.guest-container * {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Ajustar a classe .animate-fade-in para evitar espaçamentos */
+.animate-fade-in {
+    margin: 0 !important; /* Remove margens adicionadas pela animação */
+    padding: 0 !important; /* Remove paddings adicionados pela animação */
 }
